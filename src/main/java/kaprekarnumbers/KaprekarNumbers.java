@@ -22,12 +22,12 @@ public class KaprekarNumbers {
         int l = Integer.parseInt("".equals(lSubstring) ? "0" : lSubstring);
         int r = Integer.parseInt(rSubstring);
 
-        return l  == num - r;
+        return l == num - r;
     }
 
     public static void kaprekarNumbers(int p, int q) {
-        String result = getKaprekarNumbers(p, q+1).stream().map(Object::toString).collect(Collectors.joining(" "));
-        if(!result.isEmpty()){
+        String result = getKaprekarNumbers(p, q + 1).stream().map(Object::toString).collect(Collectors.joining(" "));
+        if (!result.isEmpty()) {
             System.out.println(result);
         } else {
             System.out.println("INVALID RANGE");

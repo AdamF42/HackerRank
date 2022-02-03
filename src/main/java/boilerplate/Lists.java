@@ -36,10 +36,44 @@ public class Lists {
         return matrix;
     }
 
+    public static <T> List<List<T>> createMatrixFromList(List<T> arr, int nCol) {
+        List<List<T>> matrix = new ArrayList<>();
+        for (int i = 0; i < arr.size(); i = i + nCol) {
+            List<T> row = new ArrayList<>();
+            for (int j = i; j < i + nCol && j < arr.size(); j++) {
+                row.add(arr.get(j));
+            }
+            matrix.add(row);
+        }
+        return matrix;
+    }
+
     public static <T> void printMatrix(List<List<T>> matrix) {
         for (List<T> row : matrix) {
             System.out.println(row.stream().map(Object::toString).collect(Collectors.joining(" ")));
         }
+    }
+
+    public static <T> List<List<T>> generatePermutations(List<T> arr) {
+        List<List<T>> globalAcc = new ArrayList<>();
+        return generatePermutations(arr, new ArrayList<>(), globalAcc);
+
+    }
+
+    private static <T> List<List<T>> generatePermutations(List<T> arr, List<T> acc, List<List<T>> globalAcc) {
+
+        if (arr.size() == 0) {
+            globalAcc.add(new ArrayList<>(acc));
+        } else {
+            for (T e : arr) {
+                List<T> subArr = new ArrayList<>(arr);
+                subArr.remove(e);
+                acc.add(e);
+                generatePermutations(subArr, new ArrayList<>(acc), globalAcc);
+                acc.remove(e);
+            }
+        }
+        return globalAcc;
     }
 
 }

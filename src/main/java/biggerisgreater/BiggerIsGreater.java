@@ -1,12 +1,7 @@
 package biggerisgreater;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static boilerplate.Files.readFile;
 
@@ -59,8 +54,6 @@ public class BiggerIsGreater {
         Arrays.sort(toSort, firstSmallCharIndex + 1, toSort.length);
         return new String(toSort);
     }
-
-
 
 
     public static void main(String[] args) throws Exception {
