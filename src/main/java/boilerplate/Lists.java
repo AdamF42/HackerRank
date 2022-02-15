@@ -1,6 +1,7 @@
 package boilerplate;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -13,6 +14,21 @@ public class Lists {
     }
 
     private static <T> List<T> reverse(List<T> arr, List<T> acc) {
+        if (arr.size() == 0) {
+            return acc;
+        }
+        T elem = arr.remove(arr.size() - 1);
+        acc.add(elem);
+        return reverse(arr, acc);
+    }
+
+
+    public static <T> LinkedList<T> reverse(LinkedList<T> arr) {
+        arr = new LinkedList<>(arr);
+        return reverse(arr, new LinkedList<>());
+    }
+
+    private static <T> LinkedList<T> reverse(LinkedList<T> arr, LinkedList<T> acc) {
         if (arr.size() == 0) {
             return acc;
         }

@@ -16,32 +16,7 @@ public class FormingMagicSquare {
      */
 
     public static int formingMagicSquare(List<List<Integer>> s) {
-
-        Set<Integer> allN = new HashSet<>();
-
-        int nSquare = s.size() * s.size();
-
-        for (int i = 1; i < nSquare + 1; i++) {
-            allN.add(i);
-        }
-
-        Set<Integer> presentN = new HashSet<>();
-
-        for (int i = 0; i < s.size(); i++) {
-            for (int j = 0; j < s.size(); j++) {
-                presentN.add(s.get(j).get(i));
-            }
-        }
-        System.out.println(allN);
-        System.out.println(presentN);
-        allN.removeAll(presentN);
-        System.out.println(allN);
-
-        int magicCostant = (nSquare * (nSquare + 1)) / (2 * s.size());
-
-        System.out.println(magicCostant);
-
-        return 0;
+        return formingMagicSquareBruteForce(s);
     }
 
     public static int formingMagicSquareBruteForce(List<List<Integer>> s) {
@@ -55,29 +30,19 @@ public class FormingMagicSquare {
 
     // n^2
     private static boolean isMagic(List<List<Integer>> matrix) {
-        int magicCostant = ((matrix.size() * matrix.size()) * ((matrix.size() * matrix.size()) + 1)) / (2 * matrix.size());
+        int nSquare = matrix.size() * matrix.size();
+        int magicCostant = (nSquare * (nSquare + 1)) / (2 * matrix.size());
+
         boolean areRowsMagic = true;
         boolean areColsMagic = true;
-        boolean areDiagonalMagic = true;
-        for (int i = 0; i < matrix.size(); i++) {
-            int row_sum = 0;
-            for (int j = 0; j < matrix.size(); j++) {
-                row_sum = row_sum + matrix.get(i).get(j);
-            }
-            areRowsMagic = areRowsMagic && row_sum == magicCostant;
-        }
-
-        for (int i = 0; i < matrix.size(); i++) {
-            int col_sum = 0;
-            for (int j = 0; j < matrix.size(); j++) {
-                col_sum = col_sum + matrix.get(j).get(i);
-            }
-            areColsMagic = areColsMagic && col_sum == magicCostant;
-        }
         int d1 = 0;
         int d2 = 0;
         for (int i = 0; i < matrix.size(); i++) {
+            int row_sum = 0;
+            int col_sum = 0;
             for (int j = 0; j < matrix.size(); j++) {
+                row_sum = row_sum + matrix.get(i).get(j);
+                col_sum = col_sum + matrix.get(j).get(i);
                 if (i == j) {
                     d1 = d1 + matrix.get(i).get(j);
                 }
@@ -85,8 +50,10 @@ public class FormingMagicSquare {
                     d2 = d2 + matrix.get(i).get(j);
                 }
             }
+            areRowsMagic = areRowsMagic && row_sum == magicCostant;
+            areColsMagic = areColsMagic && col_sum == magicCostant;
         }
-        areDiagonalMagic = d1 == magicCostant && d2 == magicCostant;
+        boolean areDiagonalMagic = d1 == magicCostant && d2 == magicCostant;
 
         return areRowsMagic && areColsMagic && areDiagonalMagic;
     }
@@ -100,8 +67,9 @@ public class FormingMagicSquare {
             }
         }
 
-        if (cost == 8) {
+        if (cost == 12) {
             printMatrix(calculated);
+            System.out.println();
         }
 
         return cost;
@@ -119,7 +87,6 @@ public class FormingMagicSquare {
         List<List<Integer>> matrix6 = createMatrixFromList(new ArrayList<>(Arrays.asList(4, 5, 8, 2, 4, 1, 1, 9, 7)), 3);
 
         System.out.println(formingMagicSquareBruteForce(matrix6));
-
 
     }
 
