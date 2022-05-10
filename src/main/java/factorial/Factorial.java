@@ -6,24 +6,30 @@ import java.util.function.BiFunction;
 
 public class Factorial {
 
-
-    public static Integer fact(Integer n) {
-        if (n == 0) {
-            return 1;
+    public static Long factIterative(Long n) {
+        long acc = 1L;
+        for (long i = n; i > 0; i--) {
+            acc = acc * i;
         }
-        return n * fact(n - 1);
+        return acc;
     }
 
+    public static Long fact(Long n) {
+        return n == 0 ? 1L : n * fact(n - 1);
+    }
 
-    // Really a bad idea...Java does not support recursive lambdas function variables without using an anonymous inner class
-    public static Integer factTailRec(Integer n) {
-        BiFunction<Integer, Integer, Integer> factHelper = new BiFunction<Integer, Integer, Integer>() {
+    public static Long factTailRec(Long n, Long acc) {
+        return n == 0 ? acc : factTailRec(n - 1, acc * n);
+    }
+
+    public static Long factTailRec(Long n) {
+        BiFunction<Long, Long, Long> factHelper = new BiFunction<Long, Long, Long>() {
             @Override
-            public Integer apply(Integer n, Integer acc) {
+            public Long apply(Long n, Long acc) {
                 return n == 0 ? acc : this.apply(n - 1, acc * n);
             }
         };
-        return factHelper.apply(n, 1);
+        return factHelper.apply(n, 1L);
     }
 
     public static void main(String[] args) {
